@@ -1,0 +1,77 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+
+  "parameters": {
+    "appServicePlanName": {
+      "type": "string",
+      "defaultValue": "myAppServicePlan",
+      "metadata": {
+        "description": "Name of the App Service Plan."
+      }
+    },
+    "webAppName": {
+      "type": "string",
+      "defaultValue": "mywebappdemo123",
+      "metadata": {
+        "description": "Name of the Web App. Must be unique across Azure."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "skuName": {
+      "type": "string",
+      "defaultValue": "B1",
+      "allowedValues": [
+        "F1",  "B1", "B2", "B3",   "S1", "S2", "S3",
+        "P1v2", "P2v2", "P3v2"
+      ],
+      "metadata": {
+        "description": "Pricing tier for the App Service Plan."
+      }
+    }
+  },
+
+  "variables": {
+    "sku": {
+      "name": "[parameters('skuName')]",
+      "tier": "[if(contains('F1 B1 B2 B3', parameters('skuName')), 'Basic', 'Standard')]",
+      "capacity": 1
+    }
+  },
+
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('appServicePlanName')]",
+      "location": "[parameters('location')]",
+      "sku": "[variables('sku')]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('webAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+      ],
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+      }
+    }
+  ],
+
+  "outputs": {
+    "webAppUrl": {
+      "type": "string",
+      "value": "[concat('https://', parameters('webAppName'), '.azurewebsites.net')]"
+    }
+  }
+}
