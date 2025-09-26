@@ -28,8 +28,7 @@
       "type": "string",
       "defaultValue": "F1",
       "allowedValues": [
-        "F1",  "B1", "B2", "B3",   "S1", "S2", "S3",
-        "P1v2", "P2v2", "P3v2"
+        "F1", "D1", "B1", "B2", "B3", "S1", "S2", "S3", "P1v2", "P2v2", "P3v2"
       ],
       "metadata": {
         "description": "Pricing tier for the App Service Plan."
@@ -40,7 +39,7 @@
   "variables": {
     "sku": {
       "name": "[parameters('skuName')]",
-      "tier": "[if(contains('F1 B1 B2 B3', parameters('skuName')), 'Basic', 'Standard')]",
+      "tier": "[if(equals(parameters('skuName'),'F1'),'Free', if(equals(parameters('skuName'),'D1'),'Shared', if(contains('B1 B2 B3', parameters('skuName')), 'Basic', if(contains('S1 S2 S3', parameters('skuName')), 'Standard','PremiumV2'))))]",
       "capacity": 1
     }
   },
