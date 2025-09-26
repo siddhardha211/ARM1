@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": "GEN-UNIQUE"
+      "value": "azuser"
     },
     "adminPassword": {
-      "value": "GEN-PASSWORD"
+      "value": "Siddu@812144"
     },
     "dnsLabelPrefix": {
-      "value": "GEN-UNIQUE"
+      "value": "sidduarm01"
     }
   }
 }
