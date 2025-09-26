@@ -4,7 +4,7 @@
   "parameters": {
     "appServicePlanName": { "value": "myAppPlan01" },
     "webAppName": { "value": "mywebappdemo2025" },
-    "location": { "value": "EastUS" },
+    "location": { "value": "WestEurope" },
     "skuName": { "value": "D1" }
   }
 }
