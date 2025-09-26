@@ -5,6 +5,6 @@
     "appServicePlanName": { "value": "myAppPlan01" },
     "webAppName": { "value": "mywebappdemo2025" },
     "location": { "value": "EastUS" },
-    "skuName": { "value": "F1" }
+    "skuName": { "value": "D1" }
   }
 }
